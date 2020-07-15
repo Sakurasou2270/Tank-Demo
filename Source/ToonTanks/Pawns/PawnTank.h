@@ -19,7 +19,6 @@ public:
 
 	virtual void Tick(float DeltaTime) override;
 	virtual void SetupPlayerInputComponent(class UInputComponent *PlayerInputComponen) override;
-	virtual void BeginPlay() override;
 
 private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = true))
@@ -37,6 +36,9 @@ private:
 	FVector MoveDirection;
 	FQuat RotationDirection;
 
+	APlayerController *PlayerControllerRef;
+	FHitResult TraceResult;
+
 	void CalculateMoveInput(float Value);
 	void CalculateRotateInput(float Value);
 
@@ -44,4 +46,6 @@ private:
 	void Rotate();
 
 protected:
+	virtual void BeginPlay() override;
+	virtual void HandleDestruction() override;
 };

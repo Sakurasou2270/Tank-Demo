@@ -5,6 +5,12 @@
 #include "TimerManager.h"
 #include "PawnTank.h"
 #include "Kismet/GameplayStatics.h"
+#include "DrawDebugHelpers.h"
+
+APawnTurret::APawnTurret()
+{
+    PrimaryActorTick.bCanEverTick = true;
+}
 
 // Called when the game starts or when spawned
 void APawnTurret::BeginPlay()
@@ -26,6 +32,14 @@ void APawnTurret::BeginPlay()
 void APawnTurret::Tick(float DeltaTime)
 {
     Super::Tick(DeltaTime);
+
+    if (!PlayerTank || ReturnDistanceToPlayer() > FireRange)
+    {
+        return;
+        UE_LOG(LogTemp, Warning, TEXT("NO Tank"));
+    }
+
+    RotateTurret(PlayerTank->GetActorLocation());
 }
 
 void APawnTurret::CheckFireCondition()
@@ -37,7 +51,7 @@ void APawnTurret::CheckFireCondition()
 
     if (ReturnDistanceToPlayer() <= FireRange)
     {
-        UE_LOG(LogTemp, Warning, TEXT("Fire"));
+        Fire();
     }
 }
 
@@ -50,4 +64,10 @@ float APawnTurret::ReturnDistanceToPlayer()
 
     float Distance = (PlayerTank->GetActorLocation() - GetActorLocation()).Size();
     return Distance;
+}
+
+void APawnTurret::HandleDestruction()
+{
+    Super::HandleDestruction();
+    Destroy();
 }
