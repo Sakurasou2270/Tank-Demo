@@ -36,8 +36,14 @@ private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Damage", meta = (AllowPrivateAccess = "true"))
 	float Damage = 50.0f;
 
+	UFUNCTION()
+	void OnHit(UPrimitiveComponent *HitComponent,
+			   AActor *OtherActor,
+			   UPrimitiveComponent *OtherComp,
+			   FVector NormalImpulse,
+			   const FHitResult &Hit);
+
 protected:
 	// Called when the game starts or when spawned
-	virtual void
-	BeginPlay() override;
+	virtual void BeginPlay() override;
 };
