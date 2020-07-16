@@ -39,7 +39,6 @@ void ATankGameModeBase::ActorDied(AActor *DeadActor)
 		{
 			HandleGameOver(true);
 		}
-		UE_LOG(LogTemp, Warning, TEXT("%d"), TargetTurret);
 	}
 }
 

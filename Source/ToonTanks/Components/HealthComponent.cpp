@@ -7,7 +7,6 @@
 UHealthComponent::UHealthComponent()
 {
 	PrimaryComponentTick.bCanEverTick = false;
-	Health = DefaultHealth;
 }
 
 // Called when the game starts
@@ -15,6 +14,7 @@ void UHealthComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
+	Health = DefaultHealth;
 	GameMode = Cast<ATankGameModeBase>(GetWorld()->GetAuthGameMode());
 
 	// Adding dynamic function to owning actor
@@ -42,7 +42,7 @@ void UHealthComponent::TakeDamage(
 	}
 
 	Health = FMath::Clamp(Health - Damage, 0.0f, DefaultHealth);
-
+	
 	if (Health <= 0)
 	{
 		if (GameMode)
