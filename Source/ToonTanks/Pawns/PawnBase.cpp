@@ -54,3 +54,8 @@ void APawnBase::HandleDestruction()
 {
 	// Function not implemented
 }
+
+void APawnBase::PawnDestroyed()
+{
+	HandleDestruction();
+}
