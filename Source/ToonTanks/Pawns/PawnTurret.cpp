@@ -38,13 +38,12 @@ void APawnTurret::Tick(float DeltaTime)
         return;
         UE_LOG(LogTemp, Warning, TEXT("NO Tank"));
     }
-
     RotateTurret(PlayerTank->GetActorLocation());
 }
 
 void APawnTurret::CheckFireCondition()
 {
-    if (!PlayerTank)
+    if (!PlayerTank || !PlayerTank->GetIsPlayerAlive())
     {
         return;
     }
