@@ -5,7 +5,6 @@
 #include "TimerManager.h"
 #include "PawnTank.h"
 #include "Kismet/GameplayStatics.h"
-#include "DrawDebugHelpers.h"
 
 APawnTurret::APawnTurret()
 {

@@ -8,6 +8,7 @@
 
 class UCapsuleComponent;
 class AProjectileBase;
+class UHealthComponent;
 
 UCLASS()
 class TOONTANKS_API APawnBase : public APawn
@@ -30,6 +31,12 @@ private:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Projectile Type", meta = (AllowPrivateAccess = "true"))
 	TSubclassOf<AProjectileBase> ProjectileClass;
 
+	UPROPERTY(EditAnywhere, Category = "Effects")
+	UParticleSystem *DeathParticle;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Projectile Type", meta = (AllowPrivateAccess = "true"))
+	UHealthComponent *HealthComponent;
+
 public:
 	// Sets default values for this pawn's properties
 	APawnBase();
@@ -38,6 +45,6 @@ public:
 protected:
 	void RotateTurret(FVector LookAtTarget);
 	void Fire();
-	// Virtual Meaning overriding functionality
+	// Virtual meaning it can override original functionality
 	virtual void HandleDestruction();
 };
