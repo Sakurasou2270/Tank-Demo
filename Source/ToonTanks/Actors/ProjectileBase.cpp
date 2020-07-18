@@ -29,6 +29,7 @@ void AProjectileBase::BeginPlay()
 {
 	Super::BeginPlay();
 
+	UGameplayStatics::PlaySoundAtLocation(GetWorld(), LaunchSound, GetActorLocation());
 	// Dynamic Delegates
 	ProjectileMesh->OnComponentHit.AddDynamic(this, &AProjectileBase::OnHit);
 }
@@ -51,6 +52,8 @@ void AProjectileBase::OnHit(
 	{
 		UGameplayStatics::ApplyDamage(OtherActor, Damage, MyOwner->GetInstigatorController(), this, DamageType);
 		UGameplayStatics::SpawnEmitterAtLocation(this, HitParticle, Hit.Location);
+		UGameplayStatics::PlaySoundAtLocation(GetWorld(), HitSound, GetActorLocation());
+		GetWorld()->GetFirstPlayerController()->ClientPlayCameraShake(HitShake);
 		Destroy();
 	}
 }

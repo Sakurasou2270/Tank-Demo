@@ -3,8 +3,6 @@
 #include "PawnBase.h"
 #include "Components/CapsuleComponent.h"
 #include "Kismet/KismetMathLibrary.h"
-// TODO Remove
-// #include "Components/StaticMeshComponent.h"
 #include "ToonTanks/Actors/ProjectileBase.h"
 #include "ToonTanks/Components/HealthComponent.h"
 #include "Kismet/GameplayStatics.h"
@@ -58,6 +56,8 @@ void APawnBase::Fire()
 void APawnBase::HandleDestruction()
 {
 	UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), DeathParticle, GetActorLocation());
+	UGameplayStatics::SpawnSoundAtLocation(GetWorld(), DeathSound, GetActorLocation());
+	GetWorld()->GetFirstPlayerController()->ClientPlayCameraShake(DeathShake);
 }
 
 void APawnBase::PawnDestroyed()
